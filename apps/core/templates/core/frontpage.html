@@ -1,0 +1,48 @@
+{% extends 'core/base.html'%}
+{% load static %}
+{% block content %}
+    <h2 class="subtitle has-text-centered">Cup Cakes</h2>
+    
+    <div class="columns">
+        {% for cake in cakes %}
+            <div class="column is-4">
+              
+                <div class="card">
+                  
+                    <div class="card-image">
+                      <figure class="image is-4by3">
+                        <img src="{{cake.image.url}}" alt="Placeholder image">
+                      </figure>
+                    </div>
+                    <div class="card-content">
+                      <div class="media">
+                        <div class="media-left">
+                          <figure class="image is-48x48">
+                            <img src="{{cake.image.url}}" alt="Placeholder image">
+                          </figure>
+                        </div>
+                        <div class="media-content">
+                          <p class="title is-4">{{cake.title}}</p>
+                          <p class="subtitle is-6">@{{cake.created_by}}</p>
+                        </div>
+                      </div>
+                  
+                      <div class="content">
+                        <p class="">{{cake.short_description}}</p>
+                        <a class="button is-success" href="{% url 'cake_detail' cake.id %}">View</a>
+                        <br>
+                        <time datetime="2016-1-1">{{cake.created_at}}</time>
+                      </div>
+                    </div>
+                  </div>
+                  
+
+            </div>
+
+        {% endfor %}
+    </div>
+
+
+    
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'core/base.html'%}
+{% load static %}
+{% block content %}
+    <h1 class="title">{{cake.title}}</h1>
+    <p class="is-size-4">{{cake.short_description}}</p>
+
+    <p class="content">{{cake.long_description}}</p>
+
+    <a href="{% url 'rate_cake' cake.id %}" class="button is-success">Rate Cup Cake</a>
+
+{% endblock %}

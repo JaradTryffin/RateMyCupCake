@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <h1 class="title">Rate My Cup Cake - {{cake.title}}</h1>
+
+    <form action="." method="post">
+        {% csrf_token %}
+
+        {% if form.errors %}
+            {% for error in form.errors %}
+            <div class="notifications is-danger">
+                {{error}}
+
+            </div>
+            {% endfor %}
+        {% endif %}
+
+       
+      <div class="field">
+          <label>Rate Cup Cake</label>
+
+          <div class="control">
+              <div class="select">
+                  <select name="refer">
+                      <option value="">1-5 Stars</option>
+                      <option value="refer_1_star">1 Star</option>
+                      <option value="refer_2_star">2 Star</option>
+                      <option value="refer_3_star">3 Star</option>
+                      <option value="refer_4_star">4 Star</option>
+                      <option value="refer_5_star">5 Star</option>
+                  </select>
+              </div>
+          </div>
+      </div>
+
+        <div class="field">
+            <label>Rate my Cup Cake</label>
+
+            <div class="control">
+               <textarea class="textarea" name="content" id="content"></textarea>
+            </div>
+        </div>
+
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-success">Post</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'core/base.html'%}
+{% block content %}
+    <h1 class="title">Dashboard</h1>
+
+    {% if userprofile.is_user %}
+        <h2 class="subtitle">My Cup Cakes</h2>
+        <a class="button is-success" href="{% url 'add_cake'%}">Add Your Cup Cake</a>
+        <hr>
+        <p>List of my Cupcakes</p>
+        {% for cake in request.user.cakes.all %}
+            <div class="job">
+                <a href="{% url 'view_dashboard_cake' cake.id %}">{{cake.title}}</a>
+            </div>
+        {% empty %}
+            <p>You did not post any cup cakes yet...</p>
+        {% endfor %}
+    {% else %}
+            <h2 class="subtitle">My Ratings</h2>
+
+            {% for rate in request.user.rates.all %}
+                <div class="container">
+                   <a href="{% url 'view_rating' rate.id %}">{{rate.cake.title}}</a> 
+                </div>
+            {% empty %}
+                <p>You don't have any ratings</p>
+            {% endfor %}
+           
+    {% endif %}
+
+{% endblock %}

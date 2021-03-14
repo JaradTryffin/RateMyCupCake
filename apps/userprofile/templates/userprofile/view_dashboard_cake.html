@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    {% for rate in cake.rates.all %}
+        <a class="button is-success" href="{% url 'view_rating' rate.id %}">{{rate.created_by.username}}</a>
+
+    {% endfor %}
+    <h1 class="title">View Cup Cake - {{cake.title}}</h1>
+        <p class="is-size-4">{{cake.short_description}}</p>
+        
+        <p class="content">{{cake.long_description}}</p>
+        <p class="content">{{cake.created_by}}</p>
+
+        <div class="card">
+            <div class="card-image">
+                <figure class="image is-4by3">
+                    <img src="{{cake.image.url}}" alt="Placeholder image">
+                </figure>
+            </div>
+        </div>
+
+    
+
+
+{% endblock %}

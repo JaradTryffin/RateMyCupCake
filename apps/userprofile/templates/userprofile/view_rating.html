@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <h1 class="title">View Rating</h1>
+
+    <h2 class="suubtitle">{{rate.cake.title}}</h2>
+
+    <small>Date created : {{rate.created_at}}</small>
+    <br>
+    <small>created by: {{rate.created_by}}</small>
+
+    <p><strong>Rated :</strong>{{rate.refer}}</p>
+    <p><strong>Comment : </strong>{{rate.content}}</p>
+
+    <hr>
+
+    <h2 class="subtitle">Conversation</h2>
+    {% for message in rate.conversationmessages.all %}
+        <div class="notification">
+            <b>{{message.created_by.username}} - {{message.created_at|timesince}} ago</b>
+
+            {{message.content }}
+        </div>
+        {% empty %}
+            <p>No Messages Yet...</p>
+            <hr>
+    {% endfor %}
+
+    <form action="." method="post">
+        {% csrf_token %}
+        <div class="field">
+            <div class="control">
+                <textarea name="content" id="id_content" placeholder="Your Message" class="textarea"></textarea>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <button class="button is-success">Send</button>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div id="add-cake-app">
+    <h1 class="title">Add Your Cup Cake</h1>
+
+    <form  enctype="multipart/form-data" action="." method="post" v-on:submit="validateForm">
+        {% csrf_token %}
+
+        {% if form.errors %}
+            {% for error in form.errors %}
+            <div class="notifications is-danger">
+                {{error}}
+
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="notification is-danger" v-if="errors.length">
+            <p v-for="error in errors">
+                [[error]]
+            </p>
+
+
+        </div>
+
+        <div class="field">
+            <label>Title</label>
+
+            <div class="control">
+                <input class="input" placeholder="Enter title of Cup Cake" type="text" name="title" id="id_title" v-model="title">
+            </div>
+        </div>
+        <div class="field">
+            <label>Short Description</label>
+
+            <div class="control">
+               <textarea class="textarea" name="short_description" id="id_short_description" v-model="short_description"></textarea>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Long Description</label>
+
+            <div class="control">
+               <textarea class="textarea" placeholder="Enter Long Description such as recipe" name="long_description" id="id_long_description" v-model="long_description"></textarea>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Upload Image</label>
+
+            <div class="control">
+                <input  type="file" name="image" id="id_image">
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-success">Post</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const AddCakeApp={
+        data(){
+            return{
+                title:'',
+                short_description:'',
+                long_description:'',
+                errors:[]
+
+            }
+        },
+        delimiters:['[[',']]'],
+        methods:{
+            validateForm(e) {
+                this.errors=[]
+
+                if(this.title ===''){
+                    this.errors.push('The title field is missing!')
+                }
+                 if (this.short_description ==='') {
+                    this.errors.push('The short description field is missing!')
+                }
+                 if (this.short_description === '') {
+                    this.errors.push('The Long description field is missing!')
+                }
+
+                if(this.errors.length){
+                    e.preventDefault()
+                    return false
+                }else{
+                    return true
+                }
+            }
+        }
+    }
+
+    Vue.createApp(AddCakeApp).mount('#add-cake-app');
+</script>
+{% endblock %}
